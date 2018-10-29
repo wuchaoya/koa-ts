@@ -13,6 +13,6 @@ mongoDB.connect();
 app
   .use(router.routes()).use(router.allowedMethods())
 
- app.listen(8000);
+  .listen(8000);
 
 global.console.log('http://localhost:8000/');

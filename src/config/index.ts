@@ -2,4 +2,4 @@
  * Created by chao
  */
 
-export const Path = 'mongodb://localhost/Blog';
+export const Path = 'mongodb://mongodb/Blog';

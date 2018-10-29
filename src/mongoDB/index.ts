@@ -14,15 +14,7 @@ export const { Schema } = DB;
 export const connect = () => {
   
   DB.connect(Path,{useNewUrlParser:true}, (err) => {
-  
-    if(err){
-     
-     global.console.log('Connection Error:' + err)
-     
-    }else{
-     
-     global.console.log('Connection success!') }
-     
+    global.console.log(err ? 'Connection Error:' + err : 'Connection success!')
   });
   
   DB.connection.on('error', error => {
