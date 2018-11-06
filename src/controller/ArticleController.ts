@@ -22,10 +22,7 @@ export default class ArticleController {
         total
       } :
       {
-        articles: articles.map((item: any) => ({
-          ...item._doc,
-          content: item._doc.content.substr(0, 180),
-        })),
+        articles,
         total,
       }
   }
