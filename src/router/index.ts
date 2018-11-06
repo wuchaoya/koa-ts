@@ -13,5 +13,8 @@ router
   .get('/resume', InfoController.findResume)
   .get('/article', ArticleController.article)
   .get('/articles', ArticleController.articles)
+  .post('/add-article', ArticleController.addArticle)
+  .post('/delete-article',ArticleController.deleteArticle)
+  .post('/update-article',ArticleController.updateArticle)
 
 export default router;

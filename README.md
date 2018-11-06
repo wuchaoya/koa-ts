@@ -72,3 +72,10 @@ docker rmi -f $(docker images -q)
 6. docker build -t koa-server ./　
 
 7. docker run -it -p 8000:8000 --name koa-server --link=mongodb:mongodb koa-server
+
+
+
+### code
+
+ 1. 200 成功
+ 2. 500 失败 

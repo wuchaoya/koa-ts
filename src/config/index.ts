@@ -2,4 +2,5 @@
  * Created by chao
  */
 
-export const Path = 'mongodb://mongodb/Blog';
+export const DockerPath = 'mongodb://mongodb/Blog';
+export const Path = 'mongodb://localhost/Blog';

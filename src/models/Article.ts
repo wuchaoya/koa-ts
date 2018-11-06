@@ -25,7 +25,10 @@ const ArticleSchema = new Schema({
   content: String,
   
   // 创建时间
-  create_at: {type: Date, default: Date.now()},
+  create_at: Date,
+  
+  // 标签
+  tag: Object,
   
   // 标题
   title: String,

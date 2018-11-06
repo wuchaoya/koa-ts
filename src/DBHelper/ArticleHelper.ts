@@ -3,12 +3,19 @@
  */
 
 import Models from '../models';
+import { tagColors } from '../utils/Color';
 
 const {Article} = Models;
 
 interface IQuery {
   pageIndex: string,
   pageSize: string
+}
+
+interface IArticle {
+  _id?: string;
+  tag: string;
+  create_at: string;
 }
 
 export default class ArticleHelper {
@@ -21,10 +28,40 @@ export default class ArticleHelper {
       return err || count;
     });
     return {total, articles}
+  };
+  
+  public static findArticleById = async(Id: string) => await Article.findById(Id);
+  
+  public static createArticle = async (article: IArticle) => {
+    const tag = {color: tagColors[Math.floor(Math.random() * 6)], title: article.tag};
+    return await Article.create(
+      {...article, tag, create_at: new Date()},
+      (err: string, doc: object) => {
+       if (err) {
+         throw (err);
+       } else {
+         return doc;
+       }
+      }
+    );
+   
+  };
+  
+  public static deleteArticleById = async (id: string) => {
+    return await Article.remove({ _id: id })
   }
   
-  public static findArticleById = async(Id: string) => {
-    await Article.findById(Id);
+  public static updateArticleById = async (article: IArticle) => {
+    const tag = {
+      color: tagColors[Math.floor(Math.random() * 6)],
+      title: article.tag,
+    }
+    
+    const response = await Article.update(
+      { _id: article._id },
+      { ...article, tag }
+    )
+    return response
   }
   
 }

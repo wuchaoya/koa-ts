@@ -7,7 +7,7 @@
  ADD . /app/
  # cd到app文件夹下
  WORKDIR /app
-
+ RUN rm -rf node_modules
  # 安装项目依赖包
  RUN npm install yarn -g
  RUN yarn
