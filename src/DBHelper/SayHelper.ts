@@ -3,10 +3,17 @@ import Result from '../utils/Result';
 
 const { Say } = Models;
 
+
+interface IPayload {
+  pageSize: string
+  pageIndex: string
+}
+
 export default class SayHelper {
   
-  public static findSay = async () => {
-    const say = await Say.find({});
+  public static findSay = async (payload: IPayload) => {
+    const Skip = (Number.parseInt(payload.pageIndex, 10) -1) * Number.parseInt(payload.pageSize, 10);
+    const say = await Say.find({}).sort({create_at: -1}).limit(Number.parseInt(payload.pageSize, 10)).skip(Skip);
     const total = await Say.count({});
     return { say, total };
   }
