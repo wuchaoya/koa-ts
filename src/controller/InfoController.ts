@@ -5,7 +5,7 @@ import { Context } from 'koa';
 import DBHelper from '../DBHelper';
 import Result from '../utils/Result';
 
-const { findInfo, findResume } = DBHelper.InfoHelper;
+const { findInfo,  findAdminInfo  } = DBHelper.InfoHelper;
 
 export default class InfoController {
   
@@ -15,10 +15,9 @@ export default class InfoController {
     ctx.body = response.Return();
   }
   
-  public static async findResume (ctx: Context) {
-    const Resume = await findResume();
-    const response = new Result( Resume[0] );
-    ctx.body = response.Return() ;
+  public static async findAdminInfo(ctx: Context) {
+    const AdminInfo = await findAdminInfo()
+    ctx.body = AdminInfo
   }
   
 }

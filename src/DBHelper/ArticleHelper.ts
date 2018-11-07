@@ -5,7 +5,7 @@
 import Models from '../models';
 import { tagColors } from '../utils/Color';
 
-const {Article} = Models;
+const {Article, Info} = Models;
 
 interface IQuery {
   pageIndex: string
@@ -55,7 +55,7 @@ export default class ArticleHelper {
   
   public static createArticle = async (article: IArticle) => {
     const tag = {color: tagColors[Math.floor(Math.random() * 6)], title: article.tag};
-    return await Article.create(
+    const response = await Article.create(
       {...article, tag, create_at: new Date()},
       (err: string, doc: object) => {
        if (err) {
@@ -65,7 +65,16 @@ export default class ArticleHelper {
        }
       }
     );
-   
+    const info: any = await Info.find({})
+    if (Array.isArray(info[0].data)) {
+      info[0].data.forEach((item: any) => {
+        if (Number.parseInt(item.month, 10) === new Date().getMonth() + 1) {
+          item.article += 1
+        }
+      })
+      await Info.update({ _id: info[0]._id }, { data: info[0].data })
+    }
+    return response
   };
   
   public static deleteArticleById = async (id: string) => {

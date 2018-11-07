@@ -1,7 +1,7 @@
 import Models from '../models';
 import Result from '../utils/Result';
 
-const { Say } = Models;
+const { Say, Info } = Models;
 
 
 interface IPayload {
@@ -28,8 +28,19 @@ export default class SayHelper {
   }
   
   public static  addSay = async (say: object) => {
-    const response = await Say.create({...say,creact_at: Date.now()})
-    return new Result({msg: '发表成功'}).Return()
+    const response = await Say.create({ ...say, create_at: Date.now() })
+    const info: any = await Info.find({})
+    if (Array.isArray(info[0].data)) {
+      info[0].data.forEach((item: any) => {
+        if (Number.parseInt(item.month,10) === new Date().getMonth() + 1) {
+          item.say += 1
+        }
+      })
+      await Info.update({ _id: info[0]._id }, { data: info[0].data })
+    }
+    if (response) {
+      return new Result({msg: '发表成功'}).Return()
+    }
   }
   
 }
