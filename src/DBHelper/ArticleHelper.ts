@@ -8,8 +8,12 @@ import { tagColors } from '../utils/Color';
 const {Article} = Models;
 
 interface IQuery {
-  pageIndex: string,
+  pageIndex: string
   pageSize: string
+  tagTitle: string
+  title: string
+  type: string
+  nature: string
 }
 
 interface IArticle {
@@ -21,11 +25,24 @@ interface IArticle {
 export default class ArticleHelper {
   
   public static findArticles = async(query: IQuery) => {
-    const {pageIndex, pageSize} = query;
+    const { pageSize, pageIndex, tagTitle, title, type, nature } = query
+    let data: object
+    if (title) {
+      data = { title: new RegExp(title) }
+    }
+    if (tagTitle) {
+      data = { ...data, 'tag.title': tagTitle }
+    }
+    if (type) {
+      data = { ...data, type }
+    }
+    if (nature) {
+      data = { ...data, nature }
+    }
     const Skip = Number.parseInt(pageIndex, 10) * Number.parseInt(pageSize, 10) - Number.parseInt(pageSize, 10);
-    const articles = await Article.find().sort({create_at: -1}).limit(Number.parseInt(pageSize, 10)).skip(Skip);
+    const articles = await Article.find(data).sort({create_at: -1}).limit(Number.parseInt(pageSize, 10)).skip(Skip);
     const total = await Article.count({}, (err: string, count: number) => {
-      return err || count;
+      return err ? false :  count;
     });
     return {total, articles}
   };

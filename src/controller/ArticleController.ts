@@ -10,8 +10,8 @@ const {findArticleById, findArticles, createArticle, deleteArticleById, updateAr
 export default class ArticleController {
   
   public static async articles(ctx: Context) {
-    const {pageIndex, pageSize, timeFile} = ctx.query;
-    const respones = await findArticles({pageSize, pageIndex});
+    const {timeFile} = ctx.query;
+    const respones = await findArticles(ctx.query);
     const {articles, total} = respones;
     ctx.body = timeFile ?
       {
