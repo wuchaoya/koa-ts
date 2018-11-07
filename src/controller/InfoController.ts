@@ -11,7 +11,7 @@ export default class InfoController {
   
   public static async findInfo (ctx: Context) {
     const Info = await findInfo();
-    const response = new Result(Info[0]);
+    const response = new Result(Info);
     ctx.body = response.Return();
   }
   

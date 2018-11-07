@@ -9,10 +9,10 @@ const router = new koaRouter();
 const { ArticleController, InfoController,  SayController, UserController } = controller;
 
 router
-  .get('/info', InfoController.findInfo)
-  .get('/resume', InfoController.findResume)
-  .get('/article', ArticleController.article)
-  .get('/articles', ArticleController.articles)
+  .get('/get-info', InfoController.findInfo)
+  .get('/get-resume', InfoController.findResume)
+  .get('/get-article', ArticleController.article)
+  .get('/get-articles', ArticleController.articles)
   .get('/get-say', SayController.findSay)
   
   .post('/add-article', ArticleController.addArticle)

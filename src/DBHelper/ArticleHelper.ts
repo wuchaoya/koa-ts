@@ -30,7 +30,11 @@ export default class ArticleHelper {
     return {total, articles}
   };
   
-  public static findArticleById = async(Id: string) => await Article.findById(Id);
+  public static findArticleById = async(Id: string) => {
+    const article: any = await Article.findById(Id);
+    await Article.update({_id: article._id}, {access: ++article.access});
+    return article;
+  }
   
   public static createArticle = async (article: IArticle) => {
     const tag = {color: tagColors[Math.floor(Math.random() * 6)], title: article.tag};

@@ -8,6 +8,8 @@ const InfoSchema = new Schema({
   // 文章数量
   ArticleNum: Number,
   
+  // 访问次数
+  access: { type: Number, default: 0 },
   // 作者头像
   authorImg: String,
   
