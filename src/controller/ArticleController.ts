@@ -3,7 +3,6 @@
  */
 import {Context} from 'koa';
 import DBHelper from '../DBHelper';
-import Result from '../utils/Result';
 
 const {findArticleById, findArticles, createArticle, deleteArticleById, updateArticleById} = DBHelper.ArticleHelper;
 
@@ -32,29 +31,29 @@ export default class ArticleController {
   }
   
   public static async addArticle (ctx: Context) {
-    const respone = createArticle(ctx.request.body);
-    if (respone) {
-      ctx.body = new Result( {msg: '发表成功'} ).Return()
+    const response= createArticle(ctx.request.body);
+    if (response) {
+      ctx.body = { message: '发表文章成功' }
     } else {
-      ctx.body = new Result( {msg: '发表成功'} ).Return()
+      ctx.body = { message: '操作失败' }
     }
   }
   
   public static async deleteArticle(ctx: Context) {
-    const respone = await deleteArticleById(ctx.request.body.id)
-    if (respone.ok === 1) {
-      ctx.body = new Result( {msg: '删除成功'} ).Return()
+    const response = await deleteArticleById(ctx.request.body.id)
+    if (response.ok === 1) {
+      ctx.body = { message: '文章删除成功' }
     } else {
-      ctx.body = new Result( {msg: '删除失败', code: 500} ).Return()
+      ctx.body = { message: '操作失败' }
     }
   }
   
   public static async updateArticle(ctx: Context) {
     const response = await updateArticleById(ctx.request.body)
     if (response.ok === 1) {
-      ctx.body = new Result( {msg: '修改成功'} ).Return()
+      ctx.body = { message: '文章修改成功' }
     } else {
-      ctx.body = new Result( {msg: '修改失败', code: 500} ).Return()
+      ctx.body = { message: '操作失败' }
     }
   }
   

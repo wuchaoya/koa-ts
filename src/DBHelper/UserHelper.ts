@@ -22,17 +22,23 @@ export default class InfoHelper {
   public static findUser = async (user: Iuser) => {
     const respone: any = await User.findOne({userName: user.userName});
     if (!respone) {
-      return new Result({code: 500, msg: '用户名错误'}).Return()
+      return { message: '用户名错误', type: 'error' }
     } else if (user.password !== respone.password) {
-      return new Result({code: 500, msg: '密码错误'}).Return()
+      return { message: '密码错误', type: 'error' }
     } else if (respone.userName === admin) {
-      const { _id } = respone;
+      const {userName, _id } = respone;
       const token = jwt.sign({_id}, admin);
-      return new Result({ msg: '管理员登录成功', result: {...respone, token} }).Return()
+      return {
+        message: '欢迎回来，亲爱的超级管理员',
+        user: { userName, _id, token },
+      }
     } else {
-      const { _id } = respone;
+      const {userName, _id } = respone;
       const token = jwt.sign({_id}, guest);
-      return new Result({ msg: '游客登录成功', result: {...respone, token} }).Return()
+      return {
+        message: '登陆成功,您现在是游客',
+        user: { userName, _id, token },
+      }
     }
   }
   

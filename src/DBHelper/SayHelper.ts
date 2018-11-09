@@ -1,5 +1,4 @@
 import Models from '../models';
-import Result from '../utils/Result';
 
 const { Say, Info } = Models;
 
@@ -21,9 +20,9 @@ export default class SayHelper {
   public static deleteSay = async (payload: object) => {
     const response = await Say.remove(payload);
     if (response.ok === 1) {
-      return new Result({msg: '删除成功'}).Return()
+      return { message: '删除成功' }
     } else {
-      return new Result({code: 500, msg: '删除失败'}).Return()
+      return { message: '删除失败', type: 'error' }
     }
   }
   
@@ -39,7 +38,7 @@ export default class SayHelper {
       await Info.update({ _id: info[0]._id }, { data: info[0].data })
     }
     if (response) {
-      return new Result({msg: '发表成功'}).Return()
+      return { message: '说说发表成功' }
     }
   }
   
